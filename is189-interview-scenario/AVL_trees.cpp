@@ -3,8 +3,9 @@
 #include <iostream>
 using namespace std;
 
-class Node {
-   public:
+class Node
+{
+public:
   int key;
   Node *left;
   Node *right;
@@ -14,18 +15,21 @@ class Node {
 int max(int a, int b);
 
 // Calculate height
-int height(Node *N) {
+int height(Node *N)
+{
   if (N == NULL)
     return 0;
   return N->height;
 }
 
-int max(int a, int b) {
+int max(int a, int b)
+{
   return (a > b) ? a : b;
 }
 
 // New node creation
-Node *newNode(int key) {
+Node *newNode(int key)
+{
   Node *node = new Node();
   node->key = key;
   node->left = NULL;
@@ -35,45 +39,49 @@ Node *newNode(int key) {
 }
 
 // Rotate right
-Node *rightRotate(Node *y) {
+Node *rightRotate(Node *y)
+{
   Node *x = y->left;
   Node *T2 = x->right;
   x->right = y;
   y->left = T2;
   y->height = max(height(y->left),
-          height(y->right)) +
-        1;
+                  height(y->right)) +
+              1;
   x->height = max(height(x->left),
-          height(x->right)) +
-        1;
+                  height(x->right)) +
+              1;
   return x;
 }
 
 // Rotate left
-Node *leftRotate(Node *x) {
+Node *leftRotate(Node *x)
+{
   Node *y = x->right;
   Node *T2 = y->left;
   y->left = x;
   x->right = T2;
   x->height = max(height(x->left),
-          height(x->right)) +
-        1;
+                  height(x->right)) +
+              1;
   y->height = max(height(y->left),
-          height(y->right)) +
-        1;
+                  height(y->right)) +
+              1;
   return y;
 }
 
 // Get the balance factor of each node
-int getBalanceFactor(Node *N) {
+int getBalanceFactor(Node *N)
+{
   if (N == NULL)
     return 0;
   return height(N->left) -
-       height(N->right);
+         height(N->right);
 }
 
 // Insert a node
-Node *insertNode(Node *node, int key) {
+Node *insertNode(Node *node, int key)
+{
   // Find the correct postion and insert the node
   if (node == NULL)
     return (newNode(key));
@@ -87,20 +95,28 @@ Node *insertNode(Node *node, int key) {
   // Update the balance factor of each node and
   // balance the tree
   node->height = max(height(node->left),
-               height(node->right));
+                     height(node->right));
   int balanceFactor = getBalanceFactor(node);
-  if (balanceFactor > 1) {
-    if (key < node->left->key) {
+  if (balanceFactor > 1)
+  {
+    if (key < node->left->key)
+    {
       return rightRotate(node);
-    } else if (key > node->left->key) {
+    }
+    else if (key > node->left->key)
+    {
       node->left = leftRotate(node->left);
       return rightRotate(node);
     }
   }
-  if (balanceFactor < -1) {
-    if (key > node->right->key) {
+  if (balanceFactor < -1)
+  {
+    if (key > node->right->key)
+    {
       return leftRotate(node);
-    } else if (key < node->right->key) {
+    }
+    else if (key < node->right->key)
+    {
       node->right = rightRotate(node->right);
       return leftRotate(node);
     }
@@ -109,7 +125,8 @@ Node *insertNode(Node *node, int key) {
 }
 
 // Node with minimum value
-Node *nodeWithMimumValue(Node *node) {
+Node *nodeWithMimumValue(Node *node)
+{
   Node *current = node;
   while (current->left != NULL)
     current = current->left;
@@ -117,7 +134,8 @@ Node *nodeWithMimumValue(Node *node) {
 }
 
 // Delete a node
-Node *deleteNode(Node *root, int key) {
+Node *deleteNode(Node *root, int key)
+{
   // Find the node and delete it
   if (root == NULL)
     return root;
@@ -125,21 +143,27 @@ Node *deleteNode(Node *root, int key) {
     root->left = deleteNode(root->left, key);
   else if (key > root->key)
     root->right = deleteNode(root->right, key);
-  else {
+  else
+  {
     if ((root->left == NULL) ||
-      (root->right == NULL)) {
+        (root->right == NULL))
+    {
       Node *temp = root->left ? root->left : root->right;
-      if (temp == NULL) {
+      if (temp == NULL)
+      {
         temp = root;
         root = NULL;
-      } else
+      }
+      else
         *root = *temp;
       free(temp);
-    } else {
+    }
+    else
+    {
       Node *temp = nodeWithMimumValue(root->right);
       root->key = temp->key;
       root->right = deleteNode(root->right,
-                   temp->key);
+                               temp->key);
     }
   }
 
@@ -149,20 +173,28 @@ Node *deleteNode(Node *root, int key) {
   // Update the balance factor of each node and
   // balance the tree
   root->height = 1 + max(height(root->left),
-               height(root->right));
+                         height(root->right));
   int balanceFactor = getBalanceFactor(root);
-  if (balanceFactor > 1) {
-    if (getBalanceFactor(root->left) >= 0) {
+  if (balanceFactor > 1)
+  {
+    if (getBalanceFactor(root->left) >= 0)
+    {
       return rightRotate(root);
-    } else {
+    }
+    else
+    {
       root->left = leftRotate(root->left);
       return rightRotate(root);
     }
   }
-  if (balanceFactor < -1) {
-    if (getBalanceFactor(root->right) <= 0) {
+  if (balanceFactor < -1)
+  {
+    if (getBalanceFactor(root->right) <= 0)
+    {
       return leftRotate(root);
-    } else {
+    }
+    else
+    {
       root->right = rightRotate(root->right);
       return leftRotate(root);
     }
@@ -171,13 +203,18 @@ Node *deleteNode(Node *root, int key) {
 }
 
 // Print the tree
-void printTree(Node *root, string indent, bool last) {
-  if (root != nullptr) {
+void printTree(Node *root, string indent, bool last)
+{
+  if (root != nullptr)
+  {
     cout << indent;
-    if (last) {
+    if (last)
+    {
       cout << "R----";
       indent += "   ";
-    } else {
+    }
+    else
+    {
       cout << "L----";
       indent += "|  ";
     }
@@ -187,7 +224,8 @@ void printTree(Node *root, string indent, bool last) {
   }
 }
 
-int main() {
+int main()
+{
   Node *root = NULL;
   root = insertNode(root, 33);
   root = insertNode(root, 13);
