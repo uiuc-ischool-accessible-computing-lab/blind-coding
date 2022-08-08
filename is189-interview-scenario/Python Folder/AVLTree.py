@@ -118,7 +118,7 @@ class AVLTree(object):
     def getHeight(self, root):
         if not root:
             return 0
-        return root.height
+        return root.height()
 
     # Get balance factore of the node
     def getBalance(self, root):
