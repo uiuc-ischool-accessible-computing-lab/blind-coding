@@ -8,7 +8,7 @@ class Node {
 
   Node(int d) {
     item = d;
-    height = 0;
+    height = 1;
   }
 }
 
@@ -19,7 +19,7 @@ public class AVLTree {
   int height(Node N) {
     if (N == null)
       return 0;
-    return N.height + 1;
+    return Node.height;
   }
 
   int max(int a, int b) {
