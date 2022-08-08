@@ -17,7 +17,7 @@ int max(int a, int b);
 int height(Node *N) {
   if (N == NULL)
     return 0;
-  return N->height + 1;
+  return Node.height;
 }
 
 int max(int a, int b) {
@@ -30,7 +30,7 @@ Node *newNode(int key) {
   node->key = key;
   node->left = NULL;
   node->right = NULL;
-  node->height = 0;
+  node->height = 1;
   return (node);
 }
 
