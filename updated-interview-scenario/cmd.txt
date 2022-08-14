@@ -1,0 +1,28 @@
+--------------------C--------------------
+**Get to avl-tree-c directory:**
+cd avl-tree-c
+
+1. Run gcc -v to check if you have a compiler installed. If yes, please proceed to 'To compile'. Else, please install a C compiler.
+
+**To compile:**
+gcc avl-tree.c -o exec
+
+**To run:**
+./exec
+
+-------------------C++-------------------
+**Get to avl-tree-cpp directory:**
+cd avl-tree-cpp
+
+1. Run g++ -v to check if you have a compiler installed. If yes, please proceed to 'To compile'. Else, please install a C++ compiler.
+
+**To compile:**
+clang++ -std=c++20 -g -fstandalone-debug -Wall -Wextra -Werror -pedantic avl-tree.cpp -o exec
+
+**To run:**
+./exec
+
+-------------------Python-------------------
+
+**To run:**
+python avl-tree.py
